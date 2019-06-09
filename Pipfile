@@ -7,6 +7,9 @@ verify_ssl = true
 
 [packages]
 jupyterlab = "*"
+image-match = "*"
+matplotlib = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.6"
