@@ -10,6 +10,8 @@ jupyterlab = "*"
 image-match = "*"
 matplotlib = "*"
 pillow = "*"
+labelimg = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.6"
