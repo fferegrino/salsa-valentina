@@ -17,6 +17,8 @@ docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsear
 
 ### Image labelling  
 I used `labelimg` to generate tag the images... it was a painful process but I did my best, some labels need refinement, hopefully that will work.  
+### Object detection  
+I will be following [this](https://3sidedcube.com/guide-retraining-object-detection-models-tensorflow/) tutorial.
 
 
 ### Project Organization
