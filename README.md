@@ -32,11 +32,11 @@ Tips:
  - Do [this](https://medium.com/@erika_dike/installing-the-protobuf-compiler-on-a-mac-a0d397af46b8) to install protoc (I used proto 3.8.0) (additionally i had to install brew install libtool)
  - Generate the protos: `protoc --python_out=. ./object_detection/protos/anchor_generator.proto ./object_detection/protos/argmax_matcher.proto ./object_detection/protos/bipartite_matcher.proto ./object_detection/protos/box_coder.proto ./object_detection/protos/box_predictor.proto ./object_detection/protos/eval.proto ./object_detection/protos/faster_rcnn.proto ./object_detection/protos/faster_rcnn_box_coder.proto ./object_detection/protos/grid_anchor_generator.proto ./object_detection/protos/hyperparams.proto ./object_detection/protos/image_resizer.proto ./object_detection/protos/input_reader.proto ./object_detection/protos/losses.proto ./object_detection/protos/matcher.proto ./object_detection/protos/mean_stddev_box_coder.proto ./object_detection/protos/model.proto ./object_detection/protos/optimizer.proto ./object_detection/protos/pipeline.proto ./object_detection/protos/post_processing.proto ./object_detection/protos/preprocessor.proto ./object_detection/protos/region_similarity_calculator.proto ./object_detection/protos/square_box_coder.proto ./object_detection/protos/ssd.proto ./object_detection/protos/ssd_anchor_generator.proto ./object_detection/protos/string_int_label_map.proto ./object_detection/protos/train.proto ./object_detection/protos/keypoint_box_coder.proto ./object_detection/protos/multiscale_anchor_generator.proto ./object_detection/protos/graph_rewriter.proto`
  - Copy the `slim` folder from `research` at the same level as object detection.
- - Train the network with `PYTHONPATH=src/external:src/external/slim python src/external/object_detection/train.py --logtostderr --train_dir=data/interim/ --pipeline_config_path=config/ssd_mobilenet_v1_valentina.config`.
+ - Train the network with `PYTHONPATH=src/external:src/external/slim python src/external/object_detection/train.py --logtostderr --train_dir=data/interim/ --pipeline_config_path=config/ssd_mobilenet_v1_valentina.config`.  
+  
+### Export the inference graph  
 
-```
-python src/external/object_detection/legacy/train.py --logtostderr --train_dir=data/interim/ --pipeline_config_path=config/ssd_mobilenet_v1_valentina.config
-```
+To export the inference graph, call: `PYTHONPATH=src/external:src/external/slim python src/external/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path config/ssd_mobilenet_v1_valentina.config --trained_checkpoint_prefix data/interim/model.ckpt-1533 --output_directory inference_graph`
 
 
 ### Project Organization
