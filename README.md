@@ -5,6 +5,8 @@ Let's find Salsa Valentina bottles in pictures.
 
 First off I downloaded a bunch of images where Salsa Valentina is being used, the images come mainly from the official Facebook page, but I got many off Pinterest too.
 
+All images belong to their respective creators, they were downloaded from publicly available sources. If you want an image to be removed, please contact me and I will happily do so.  
+
 ### Image de-duplication  
 Since I downloaded images in bulk, I did not care for eliminating potential duplicates, however, this may be an issue when training the algorithm since it may be trained on duplicated data, which is not an ideal solution, hence, I decided to use [image-match](https://github.com/EdjoLabs/image-match) along with a dockerized ElasticSearch.  
 
