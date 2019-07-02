@@ -5,6 +5,8 @@ Let's find Salsa Valentina bottles in pictures.
 
 First off I downloaded a bunch of images where Salsa Valentina is being used, the images come mainly from the official Facebook page, but I got many off Pinterest too.
 
+All images belong to their respective creators, they were downloaded from publicly available sources. If you want an image to be removed, please contact me and I will happily do so.  
+
 ### Image de-duplication  
 Since I downloaded images in bulk, I did not care for eliminating potential duplicates, however, this may be an issue when training the algorithm since it may be trained on duplicated data, which is not an ideal solution, hence, I decided to use [image-match](https://github.com/EdjoLabs/image-match) along with a dockerized ElasticSearch.  
 
@@ -17,7 +19,12 @@ docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsear
 
 ### Image labelling  
 I used `labelimg` to generate tag the images... it was a painful process but I did my best, some labels need refinement, hopefully that will work.  
-  
+
+`labelImg data/raw/images/ data/raw/annotations/classes.txt data/raw/annotations/`
+
+### Generate TF records  
+First off, start by converting the YOLO annotations to CSV, this can be done using one of the notebooks provided. They you can generate the TF records.  
+
 ### Object detection  
 I will be following [this](https://3sidedcube.com/guide-retraining-object-detection-models-tensorflow/) tutorial, and clearing up some things with [this one](https://ersanpreet.wordpress.com/tag/ssd_mobilenet_v1_coco_11_06_2017-model/), and [this one](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10).
 

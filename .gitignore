@@ -99,6 +99,8 @@ bin/
 /data/interim
 /data/processed
 /data/raw
+!/data/raw/images
+!/data/raw/annotations
 
 # exclude external models from source control
 /src/external/  
