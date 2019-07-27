@@ -1,3 +1,4 @@
+import json
 import logging
 import sys
 from pathlib import Path
@@ -78,6 +79,7 @@ def split_train_test(annotations_path, images_path, output_path, class_, random_
     create_output(output_path, dry_run)
 
     classes_to_keep = set(class_)
+    class_labels = {label: idx for idx, label in enumerate(sorted(class_))}
 
     classes_path = Path(annotations_path, 'classes.txt')
     with open(classes_path) as readable:
@@ -114,13 +116,16 @@ def split_train_test(annotations_path, images_path, output_path, class_, random_
 
     train_file_path = Path(output_path, 'train.csv')
     test_file_path = Path(output_path, 'test.csv')
+    class_output_path = Path(output_path, 'labels.json')
 
     if not dry_run:
         train_frame.to_csv(train_file_path)
         test_frame.to_csv(test_file_path)
-        logger.info(f'Written to {train_file_path} and {test_file_path}')
+        with open(class_output_path, 'w') as writable:
+            json.dump(class_labels, writable)
+        logger.info(f'Written to {train_file_path}, {test_file_path} and {class_output_path}')
     else:
-        logger.info(f'Would have written to {train_file_path} and {test_file_path}')
+        logger.info(f'Would have written to {train_file_path}, {test_file_path} and {class_output_path}')
 
 
 if __name__ == '__main__':
