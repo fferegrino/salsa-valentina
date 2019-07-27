@@ -24,7 +24,18 @@ I used `labelimg` to generate tag the images... it was a painful process but I d
 I resized the images down to 500x500
 
 ### Generate TF records  
-First off, start by converting the YOLO annotations to CSV, this can be done using one of the notebooks provided. They you can generate the TF records.  
+
+```shell
+python src/tools/split_train_test.py ./data/raw/annotations/ ./data/raw/images/ ./data/interim/csv -r 42 --test-size 0.25 -c valentina -c botanera -c valentina-negra
+```  
+
+```shell
+python src/tools/make_tfrecords.py data/interim/csv/ data/interim/tfrecords
+```
+
+```shell
+python src/tools/make_label_map.py data/interim/csv/ data/interim/label_map
+```
 
 ### Object detection  
 I will be following [this](https://3sidedcube.com/guide-retraining-object-detection-models-tensorflow/) tutorial, and clearing up some things with [this one](https://ersanpreet.wordpress.com/tag/ssd_mobilenet_v1_coco_11_06_2017-model/), and [this one](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10).
