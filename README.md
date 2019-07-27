@@ -33,6 +33,10 @@ python src/tools/split_train_test.py ./data/raw/annotations/ ./data/raw/images/ 
 python src/tools/make_tfrecords.py data/interim/csv/ data/interim/tfrecords
 ```
 
+```shell
+python src/tools/make_label_map.py data/interim/csv/ data/interim/label_map
+```
+
 ### Object detection  
 I will be following [this](https://3sidedcube.com/guide-retraining-object-detection-models-tensorflow/) tutorial, and clearing up some things with [this one](https://ersanpreet.wordpress.com/tag/ssd_mobilenet_v1_coco_11_06_2017-model/), and [this one](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10).
 
