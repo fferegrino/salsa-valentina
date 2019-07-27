@@ -17,5 +17,5 @@ item_template = """item {{
 
 def generate_label_map(labels):
     return '\n'.join([
-        item_template.format(class_id=int(k), name=v) for k, v in labels.items()
+        item_template.format(class_id=int(v), name=k) for k, v in labels.items()
     ])
