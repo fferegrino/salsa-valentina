@@ -4,6 +4,8 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+black = ">19.*"
+isort = "*"
 
 [packages]
 jupyterlab = "*"
@@ -22,3 +24,6 @@ click-log = "*"
 
 [requires]
 python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true
