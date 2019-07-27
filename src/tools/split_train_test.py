@@ -9,6 +9,7 @@ import pandas as pd
 from PIL import Image
 from sklearn.model_selection import train_test_split
 
+from tools.files import create_folder
 from tools.utils import relative2absolute
 
 logger = logging.getLogger('split_train_test')
@@ -41,17 +42,6 @@ def annotation_to_frame(images_path, annotations, classes, ids_to_keep):
     return labels
 
 
-def create_output(output_path, dry_run):
-    if not output_path.exists():
-        if dry_run:
-            logger.info(f"Would have created the folder {str(output_path)}")
-        else:
-            logger.info(f"Creating folder {str(output_path)}")
-            output_path.mkdir(parents=True)
-    else:
-        logger.info(f"Output folder {str(output_path)} already exists")
-
-
 @click.command()
 @click.argument('annotations_path', type=click.Path(exists=True, file_okay=False))
 @click.argument('images_path', type=click.Path(exists=True, file_okay=False))
@@ -76,7 +66,7 @@ def split_train_test(annotations_path, images_path, output_path, class_, random_
         f'test_size={test_size:f}, classes=\"{", ".join(class_)}\"')
 
     output_path = Path(output_path)
-    create_output(output_path, dry_run)
+    create_folder(output_path, dry_run, logger)
 
     classes_to_keep = set(class_)
     class_labels = {label: idx for idx, label in enumerate(sorted(class_))}
