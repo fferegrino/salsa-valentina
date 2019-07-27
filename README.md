@@ -26,8 +26,12 @@ I resized the images down to 500x500
 ### Generate TF records  
 
 ```shell
-PYTHONPATH=src python src/tools/split_train_test.py ./data/raw/annotations/ ./data/raw/images/ ./data/interim -r 42 --test-size 0.25 -c valentina -c botanera -c valentina-negra
+python src/tools/split_train_test.py ./data/raw/annotations/ ./data/raw/images/ ./data/interim/csv -r 42 --test-size 0.25 -c valentina -c botanera -c valentina-negra
 ```  
+
+```shell
+python src/tools/make_tfrecords.py data/interim/csv/ data/interim/tfrecords
+```
 
 ### Object detection  
 I will be following [this](https://3sidedcube.com/guide-retraining-object-detection-models-tensorflow/) tutorial, and clearing up some things with [this one](https://ersanpreet.wordpress.com/tag/ssd_mobilenet_v1_coco_11_06_2017-model/), and [this one](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10).
