@@ -35,7 +35,6 @@ download-model-config:
 	wget -P config/ https://raw.githubusercontent.com/tensorflow/models/master/research/object_detection/samples/configs/$(MODEL_CONFIG).config
 	cp -P config/$(MODEL_CONFIG).config config/$(MODEL_CONFIG).config.bck
 
-
 format:
 	$(IN_PIPENV) isort --apply
 	$(IN_PIPENV) black $(BLACK_TARGETS)
