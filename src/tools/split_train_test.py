@@ -97,7 +97,7 @@ def split_train_test(
     create_folder(output_path, dry_run, logger)
 
     classes_to_keep = set(class_)
-    class_labels = {label: idx for idx, label in enumerate(sorted(class_))}
+    class_labels = {label: idx + 1 for idx, label in enumerate(sorted(class_))}
 
     classes_path = Path(annotations_path, "classes.txt")
     with open(classes_path) as readable:
