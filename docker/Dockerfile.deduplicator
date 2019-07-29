@@ -1,0 +1,14 @@
+FROM python:3.6-slim
+
+COPY Pipfile Pipfile.lock /
+
+RUN pip install pip pipenv --upgrade && \
+    pipenv install --ignore-pipfile --system --deploy && \
+    apt-get autoremove -y && \
+    mkdir /sources
+
+WORKDIR /sources
+
+COPY src/ .
+
+CMD bash

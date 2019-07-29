@@ -1,0 +1,17 @@
+version: '2.4'
+services:
+  es:
+    image: "elasticsearch:2.4.1"
+    ports:
+      - 9200:9200
+      - 9300:9300
+#    environment:
+#      - discovery.type=single-node:
+  base:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.deduplicator
+    environment:
+      - ES_INDEX=salsavalentina_ix
+      - ES_HOST=es
+      - ES_PORT=9200
