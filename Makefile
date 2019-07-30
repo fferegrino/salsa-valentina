@@ -9,7 +9,7 @@ MODEL_CONFIG := ssd_inception_v2_coco
 
 .EXPORT_ALL_VARIABLES:
 EXPERIMENT_ROOT=${PWD}
-PYTHONPATH:=${PWD}/src:${PWD}/src/external/research:${PYTHONPATH}
+PYTHONPATH:=${PWD}/src:${PWD}/src/external/research:${PWD}/src/external/research/slim:${PYTHONPATH}
 PIPENV_VENV_IN_PROJECT=1
 
 environment:
@@ -23,6 +23,7 @@ download-models:
 	mkdir -p src/external/TensorFlow
 	git clone --depth 1 https://github.com/tensorflow/models.git src/external/TensorFlow/
 	mv src/external/TensorFlow/research src/external/
+	mv src/external/research/object_detection/legacy/train.py src/external/research/object_detection/train.py
 	rm -rf src/external/TensorFlow
 
 download-pre-trained:
