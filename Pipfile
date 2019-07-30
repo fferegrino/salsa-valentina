@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 black = ">19.*"
 isort = "*"
+jupyterlab = "*"
+tqdm = "*"
 
 [packages]
 click = "*"
@@ -13,7 +15,6 @@ click-log = "*"
 contextlib2 = "*"
 cython = "*"
 image-match = "*"
-jupyterlab = "*"
 labelimg = "*"
 lxml = "*"
 matplotlib = "*"
