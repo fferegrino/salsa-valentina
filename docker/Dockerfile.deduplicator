@@ -1,14 +1,21 @@
-FROM python:3.6-slim
+FROM ubuntu:latest
+
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+RUN apt-get update && \
+    apt-get install software-properties-common gnupg -y && \
+    add-apt-repository ppa:jonathonf/python-3.6 -y && \
+    apt-get update && \
+    apt-get install make python3.6 python3.6-dev python3-distutils python-pip python3-distutils git unzip wget gcc g++ -y && \
+    pip install pipenv
 
 COPY Pipfile Pipfile.lock /
 
-RUN pip install pip pipenv --upgrade && \
-    pipenv install --ignore-pipfile --system --deploy && \
-    apt-get autoremove -y && \
-    mkdir /sources
+#RUN pipenv install --ignore-pipfile --system && \
+#    mkdir /sources
 
-WORKDIR /sources
+#WORKDIR /sources
 
-COPY src/ .
-
-CMD bash
+#COPY src/ .
