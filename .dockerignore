@@ -1,0 +1,7 @@
+.venv/
+.vscode/
+.git/
+data/
+bin/
+notebooks/
+src/external/

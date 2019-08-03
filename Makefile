@@ -1,7 +1,7 @@
 PIPENV := pipenv
 IN_PIPENV := $(PIPENV) run
 
-BLACK_TARGETS := $(shell find . -name "*.py" -not -path "*/.venv/*" -not -path "*/.tox/*" -not -path "*src/external/*")
+BLACK_TARGETS := $(shell find . -name "*.py" -not -path "*/.venv/*" -not -path "*/.vscode/*" -not -path "*/.tox/*" -not -path "*src/external/*")
 
 PRE_TRAINED_MODEL := ssd_inception_v2_coco_2018_01_28
 PRE_TRAINED_MODEL_NAME := ssd_inception_v2
