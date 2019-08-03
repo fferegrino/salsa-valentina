@@ -57,7 +57,7 @@ def query_images(ses, image_paths, max_results=5):
     query_results = defaultdict(list)
     for image_path in image_paths:
         results = ses.search_image(str(image_path))
-        logger.info(f"Query {str(image_path)}, results: {len(results)}")
+        logger.debug(f"Query {str(image_path)}, results: {len(results)}")
         filtered = []
         for i, r in enumerate(sorted(results, key=lambda res: res["dist"])):
             if i >= max_results:
@@ -137,8 +137,6 @@ def deduplicate_images(
     example_count,
     quiet,
 ):
-    print(locals())
-
     if quiet:
         logger.setLevel(logging.ERROR)
     else:
@@ -188,9 +186,6 @@ def deduplicate_images(
     except ValueError:
         logger.error("Error with the selected threshold")
 
-    import pdb
-
-    pdb.set_trace()
     images_to_keep = find_to_keep(similarity_results, threshold)
     logger.info(f"Moving images {len(images_to_keep)}")
     move_images(staging_path, images_to_keep)
