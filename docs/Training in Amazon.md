@@ -29,8 +29,22 @@ apt-get update && \
 apt-get install -y software-properties-common && \
 add-apt-repository ppa:jonathonf/python-3.6 -y && \
 apt-get update && \
-apt-get install python3.6 -y && \
+apt-get install python3.6 python3.6-dev -y && \
 pip install pipenv
+```  
+
+#### If something goes wrong...  
+
+```shell  
+rm /var/lib/dpkg/lock  
+```
+
+## Install git-lfs
+
+```shell
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
+apt-get install git-lfs -y && \
+git lfs install
 ```
 
 **You can now leave the root user**  
@@ -38,9 +52,11 @@ pip install pipenv
 ## Clone the repository
 
 ```shell
-mkdir /git
-cd /git
+mkdir git
+cd git
 git clone https://github.com/fferegrino/salsa-valentina.git
+cd salsa-valentina
+git lfs pull
 ```
 
 ## Use `tensorflow-gpu` 
@@ -52,7 +68,6 @@ sed -i 's/tensorflow/tensorflow-gpu/g' Pipfile
 ## Prepare environment
 
 ```shell
-cd salsa-valentina
 make setup
 make download-models
 make download-pre-trained
