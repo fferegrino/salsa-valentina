@@ -101,3 +101,4 @@ python src/tools/make_label_map.py data/interim/csv/ data/interim/label_map
 python src/external/research/object_detection/train.py --logtostderr --train_dir=data/interim/tfrecords/ --pipeline_config_path=config/ssd_inception_v2_coco.config
 ```
 
+python src/external/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path config/ssd_inception_v2_coco.config --trained_checkpoint_prefix data/interim/model.ckpt-10652 --output_directory bin
