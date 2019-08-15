@@ -120,4 +120,22 @@ python src/external/research/object_detection/train.py --logtostderr --train_dir
 
 ```shell
 python src/external/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path config/ssd_inception_v2_coco.config --trained_checkpoint_prefix data/interim/model.ckpt-XXX --output_directory bin
+```  
+
+## Export for TFLite  
+
+```shell  
+export CONFIG_FILE=inference_graph/pipeline.config 
+export CHECKPOINT_PATH=inference_graph/model.ckpt 
+export OUTPUT_DIR=./tflite  
 ```
+
+```shell  
+python src/external/research/object_detection/export_tflite_ssd_graph.py \
+ --pipeline_config_path=$CONFIG_FILE \
+ --trained_checkpoint_prefix=$CHECKPOINT_PATH \
+ --output_directory=$OUTPUT_DIR \
+ --add_postprocessing_op=true
+ ```
+
+ > TODO: introduce envvars to avoid having lots of paths prone to failure
