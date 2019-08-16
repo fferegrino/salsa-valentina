@@ -93,7 +93,9 @@ sed -i 's/num_steps: 200000/num_steps: 20000/g' config/ssd_inception_v2_coco.con
 ## Transform images into csv files
 
 ```shell
-python src/tools/split_train_test.py ./data/raw/annotations/ ./data/raw/images/ ./data/interim/csv -r 42 --test-size 0.25 -c valentina -c botanera -c valentina-negra
+python src/tools/split_train_test.py ./data/raw/annotations/ ./data/raw/images/ ./data/interim/csv \
+	-r 42 --test-size 0.25 \
+	-c valentina -c botanera -c valentina-negra
 ```
 
 ## Transform csv files into tfrecords
@@ -113,13 +115,20 @@ python src/tools/make_label_map.py data/interim/csv/ data/interim/label_map
 **You may want to execute this in a tmux**
 
 ```shell
-python src/external/research/object_detection/train.py --logtostderr --train_dir=data/interim/tfrecords/ --pipeline_config_path=config/ssd_inception_v2_coco.config
+python src/external/research/object_detection/train.py \
+	--logtostderr \
+	--train_dir=data/interim/tfrecords/ \
+	--pipeline_config_path=config/ssd_inception_v2_coco.config
 ```
 
-## Export the inference graph
+## Export the inference graphs  
 
 ```shell
-python src/external/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path config/ssd_inception_v2_coco.config --trained_checkpoint_prefix data/interim/model.ckpt-XXX --output_directory bin
+python src/external/research/object_detection/export_inference_graph.py \
+	--input_type image_tensor \
+	--pipeline_config_path config/ssd_inception_v2_coco.config \
+	--trained_checkpoint_prefix data/interim/model.ckpt-XXX \
+	--output_directory bin
 ```  
 
 ## Export for TFLite  
