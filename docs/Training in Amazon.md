@@ -29,8 +29,22 @@ apt-get update && \
 apt-get install -y software-properties-common && \
 add-apt-repository ppa:jonathonf/python-3.6 -y && \
 apt-get update && \
-apt-get install python3.6 -y && \
+apt-get install python3.6 python3.6-dev -y && \
 pip install pipenv
+```  
+
+#### If something goes wrong...  
+
+```shell  
+rm /var/lib/dpkg/lock  
+```
+
+## Install git-lfs
+
+```shell
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
+apt-get install git-lfs -y && \
+git lfs install
 ```
 
 **You can now leave the root user**  
@@ -38,9 +52,11 @@ pip install pipenv
 ## Clone the repository
 
 ```shell
-mkdir /git
-cd /git
+mkdir git
+cd git
 git clone https://github.com/fferegrino/salsa-valentina.git
+cd salsa-valentina
+git lfs pull
 ```
 
 ## Use `tensorflow-gpu` 
@@ -52,7 +68,6 @@ sed -i 's/tensorflow/tensorflow-gpu/g' Pipfile
 ## Prepare environment
 
 ```shell
-cd salsa-valentina
 make setup
 make download-models
 make download-pre-trained
@@ -78,7 +93,9 @@ sed -i 's/num_steps: 200000/num_steps: 20000/g' config/ssd_inception_v2_coco.con
 ## Transform images into csv files
 
 ```shell
-python src/tools/split_train_test.py ./data/raw/annotations/ ./data/raw/images/ ./data/interim/csv -r 42 --test-size 0.25 -c valentina -c botanera -c valentina-negra
+python src/tools/split_train_test.py ./data/raw/annotations/ ./data/raw/images/ ./data/interim/csv \
+	-r 42 --test-size 0.25 \
+	-c valentina -c botanera -c valentina-negra
 ```
 
 ## Transform csv files into tfrecords
@@ -98,6 +115,36 @@ python src/tools/make_label_map.py data/interim/csv/ data/interim/label_map
 **You may want to execute this in a tmux**
 
 ```shell
-python src/external/research/object_detection/train.py --logtostderr --train_dir=data/interim/tfrecords/ --pipeline_config_path=config/ssd_inception_v2_coco.config
+python src/external/research/object_detection/train.py \
+	--logtostderr \
+	--train_dir=data/interim/tfrecords/ \
+	--pipeline_config_path=config/ssd_inception_v2_coco.config
 ```
 
+## Export the inference graphs  
+
+```shell
+python src/external/research/object_detection/export_inference_graph.py \
+	--input_type image_tensor \
+	--pipeline_config_path config/ssd_inception_v2_coco.config \
+	--trained_checkpoint_prefix data/interim/model.ckpt-XXX \
+	--output_directory bin
+```  
+
+## Export for TFLite  
+
+```shell  
+export CONFIG_FILE=inference_graph/pipeline.config 
+export CHECKPOINT_PATH=inference_graph/model.ckpt 
+export OUTPUT_DIR=./tflite  
+```
+
+```shell  
+python src/external/research/object_detection/export_tflite_ssd_graph.py \
+ --pipeline_config_path=$CONFIG_FILE \
+ --trained_checkpoint_prefix=$CHECKPOINT_PATH \
+ --output_directory=$OUTPUT_DIR \
+ --add_postprocessing_op=true
+ ```
+
+ > TODO: introduce envvars to avoid having lots of paths prone to failure
